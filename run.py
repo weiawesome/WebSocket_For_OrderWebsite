@@ -1,6 +1,6 @@
 import json
 
-import eventlet as eventlet
+# import eventlet as eventlet
 import socketio
 
 sio = socketio.Server(cors_allowed_origins='*')
