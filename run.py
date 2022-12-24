@@ -36,5 +36,5 @@ def disconnect(sid):
             sio.emit('Boss', Json,to=i)
     print('disconnect ', sid)
 
-if __name__ == '__main__':
-    eventlet.wsgi.server(eventlet.listen(('', 8000)), app)
+# if __name__ == '__main__':
+#     eventlet.wsgi.server(eventlet.listen(('', 8000)), app)
