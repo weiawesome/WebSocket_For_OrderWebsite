@@ -7,20 +7,23 @@ sio = socketio.AsyncClient()
 
 @sio.event
 async def connect():
-    print('connection established')
+    print('connection')
 
 @sio.event
 async def Boss(data):
-    print('message received with ', data)
     data=json.loads(data)
-    print(type(data))
+    print('Boss', data)
+@sio.event
+async def Orders(data):
+    print('Orders',json.loads(data))
 
 @sio.event
 async def disconnect():
-    print('disconnected from server')
+    print('disconnected')
 
 async def main():
-    await sio.connect('https://websocket-for-orderwebsite.onrender.com')
+    # await sio.connect('https://websocket-for-orderwebsite.onrender.com')
+    await sio.connect('http://localhost:8000')
     await sio.emit('Boss','Me')
     await sio.wait()
 

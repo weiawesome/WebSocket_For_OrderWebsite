@@ -1,6 +1,5 @@
 import json
-
-# import eventlet as eventlet
+import eventlet as eventlet
 import socketio
 
 sio = socketio.Server(cors_allowed_origins='*')
@@ -23,15 +22,21 @@ def Boss(sid, data):
     Json=json.dumps(Json)
     for i in Clients:
         sio.emit('Boss',Json,to=i)
-@sio.event
-def getMessage(sid, data):
-    print('message ',sid, data)
+    Json = {'Orders': Orders}
+    Json = json.dumps(Json)
+    for i in Bosses:
+        sio.emit('Orders', Json, to=i)
 
 @sio.event
 def SentOrder(sid,data):
-    print('data',data)
-    Orders.append(json.loads(data))
-
+    print('Order',data)
+    order=(json.loads(data))
+    for i in order:
+        Orders.append(i)
+    Json={'Orders':Orders}
+    Json=json.dumps(Json)
+    for i in Bosses:
+        sio.emit('Orders',Json,to=i)
 
 @sio.event
 def disconnect(sid):
