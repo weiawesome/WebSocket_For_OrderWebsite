@@ -1,12 +1,13 @@
 import json
 
-import eventlet as eventlet
+# import eventlet as eventlet
 import socketio
 
 sio = socketio.Server(cors_allowed_origins='*')
 app = socketio.WSGIApp(sio)
 Bosses=[]
 Clients=[]
+Orders=[]
 @sio.event
 def connect(sid, environ):
     print('connect ', sid)
@@ -27,6 +28,12 @@ def getMessage(sid, data):
     print('message ',sid, data)
 
 @sio.event
+def SentOrder(sid,data):
+    print('data',data)
+    Orders.append(json.loads(data))
+
+
+@sio.event
 def disconnect(sid):
     if(sid in Bosses):
         Bosses.remove(sid)
@@ -36,5 +43,5 @@ def disconnect(sid):
             sio.emit('Boss', Json,to=i)
     print('disconnect ', sid)
 
-if __name__ == '__main__':
-    eventlet.wsgi.server(eventlet.listen(('', 8000)), app)
+# if __name__ == '__main__':
+#     eventlet.wsgi.server(eventlet.listen(('', 8000)), app)

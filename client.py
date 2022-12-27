@@ -20,9 +20,8 @@ async def disconnect():
     print('disconnected from server')
 
 async def main():
-    await sio.connect('http://localhost:8000')
+    await sio.connect('https://websocket-for-orderwebsite.onrender.com')
     await sio.emit('Boss','Me')
-    print('jaja')
     await sio.wait()
 
 if __name__ == '__main__':
