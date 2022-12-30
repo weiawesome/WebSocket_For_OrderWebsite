@@ -2,3 +2,4 @@ eventlet==0.30.2
 python-socketio
 asyncio
 gunicorn
+pandas
