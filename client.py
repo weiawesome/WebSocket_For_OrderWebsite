@@ -24,18 +24,10 @@ async def disconnect():
     print('disconnected')
 
 async def main():
-    # await sio.connect('https://websocket-for-orderwebsite.onrender.com')
-    await sio.connect('http://localhost:8000')
-    while(True):
-        a=input()
-        if(a=='q'):
-            break
-        elif(a=='g'):
-            print('Number: ',end='')
-            b=int(input())
-            await sio.emit('TakeOrder',json.dumps({'CustomerId':b}))
-        await sio.wait()
+    await sio.connect('https://websocket-for-orderwebsite.onrender.com')
+    # await sio.connect('http://localhost:8000')
 
+    await sio.wait()
 
 if __name__ == '__main__':
     asyncio.run(main())
