@@ -118,6 +118,9 @@ def TakeOrder(sid, data):
         tmp=pd.read_csv('./Datas/TempOrders.csv')
         tmp=tmp.loc[tmp['CustomerId']!=data['CustomerId']]
         tmp.to_csv('./Datas/TempOrders.csv',index=0)
+        ResultJson=GetResultToBosses()
+        for i in Bosses:
+            sio.emit('Orders',ResultJson, to=i)
     else:
         print(sid,' not Boss!')
 
