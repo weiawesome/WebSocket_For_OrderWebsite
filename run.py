@@ -2,7 +2,7 @@ import datetime
 import json
 import os
 
-import eventlet as eventlet
+# import eventlet as eventlet
 import pandas as pd
 import socketio
 
@@ -10,7 +10,6 @@ sio = socketio.Server(cors_allowed_origins='*')
 app = socketio.WSGIApp(sio)
 Bosses=[]
 Clients=[]
-Orders=[]
 
 def getCustomerId():
     try:
@@ -98,6 +97,7 @@ def GetResultToBosses():
     except:
         Json= {'Orders': []}
         Json = json.dumps(Json, default=int)
+    Json=Json.replace('NaN','""')
     return Json
 @sio.event
 def connect(sid, environ):
